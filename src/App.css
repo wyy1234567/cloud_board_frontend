@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+
+.container {
+  margin: 3% auto;
+}
+
+#box1 {
+  margin-left: 300px;
+  height: 300px;
+  width: 250px;
+  float: left;
+}
+
+#box2 {
+  margin-right: 300px;
+  height: 300px;
+  width: 250px;
+  float: right;
+}
