@@ -14,6 +14,7 @@ class App extends React.Component {
 
   render() {
     console.log('Inside App')
+    console.log('app props', this.props)
     return (
       <div>
         <h4 className='title is-4'>Inside App.js</h4>
