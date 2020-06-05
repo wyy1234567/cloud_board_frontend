@@ -8,6 +8,7 @@ class UserAuthContainer extends React.Component {
         return(
             <div>
                 <LoginForm setCurrentUser={this.props.setCurrentUser}/>
+                <div className='border-line'></div>
                 <SignupForm setCurrentUser={this.props.setCurrentUser}/>
             </div>
         )

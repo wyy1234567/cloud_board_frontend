@@ -62,3 +62,18 @@ export const logout = () => {
 }
  
 
+/////////////////////////////////////////////////////////
+// post: user's posts, local posts
+export const getUserPosts = (token) => {
+    // this would just be based on the current user
+    return axios.get(`${baseURL}/user_posts`, config(token))
+    .catch(handleError);
+}
+
+//get '/local_posts/:zipcode'
+export const getLocalPosts = (zipcode, token) => {
+    // this would just be based on the current user
+    return axios.get(`${baseURL}/local_posts/${zipcode}`, config(token))
+    .catch(handleError);
+}
+
