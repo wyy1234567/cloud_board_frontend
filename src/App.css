@@ -65,5 +65,55 @@
 .navbar {
   /* margin: 4px; */
   padding: 4px;
-  background-color: rgb(209, 136, 136);
+  background-color: rgb(133, 164, 204);
+}
+
+/* .post-list{
+  position: absolute;
+    top: 0;
+    right: auto;
+    bottom: 0;
+    left: 0;
+    background: #FFF;
+    color: #333;
+    max-width: 550px;
+    width: 350px;
+    z-index: 1000;
+    border-right: 1px solid #ccc;
+}
+
+.post-detail{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+} */
+
+.post-buttons {
+  margin-left: 0px;
+  /* float: left; */
+  border-right: 1px solid #ccc;
+}
+
+.post-list{
+  margin-left: 0px;
+  float: left;
+  border-right: 1px solid #ccc;
+}
+
+
+.post-tile{
+  background: white;
+  border-bottom: 1px solid #d2d8df;
+  cursor: default;
+  padding: 5px 3px 5px 0px;
+  position: relative;
+  min-height: 35px;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
 }

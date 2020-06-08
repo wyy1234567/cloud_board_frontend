@@ -63,7 +63,8 @@ export const logout = () => {
  
 
 /////////////////////////////////////////////////////////
-// post: user's posts, local posts
+// post: user's posts, local posts, singlePost, createPost
+
 export const getUserPosts = (token) => {
     // this would just be based on the current user
     return axios.get(`${baseURL}/user_posts`, config(token))
@@ -74,6 +75,39 @@ export const getUserPosts = (token) => {
 export const getLocalPosts = (zipcode, token) => {
     // this would just be based on the current user
     return axios.get(`${baseURL}/local_posts/${zipcode}`, config(token))
+    .catch(handleError);
+}
+
+export const getSinglePost = (post_id, token) => {
+    return axios.get(`${baseURL}/posts/${post_id}`, config(token))
+    .catch(handleError);
+}
+
+export const createPost = (post, token) => {
+    // hmm, will this work as is?
+    return axios.post(`${baseURL}/posts`, post, config(token))
+    .catch(handleError);
+}
+
+export const updatePost = (post, token) => {
+    console.log("UPDATE RECIPE", post);
+    // it's formdata now, so need to use .get(key)
+    return axios.patch(`${baseURL}/posts/${post.get("id")}`, post, config(token))
+    .catch(handleError);
+}
+
+
+
+/////////////////////////////////////////////////////////
+// comments: create, delete
+
+export const createComment = (comment, token) => {
+    return axios.post(`${baseURL}/comments`, comment, config(token))
+    .catch(handleError);
+}
+
+export const deleteComment = (comment_id, token) => {
+    return axios.delete(`${baseURL}/comments/${comment_id}`, config(token))
     .catch(handleError);
 }
 
