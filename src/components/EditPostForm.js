@@ -1,5 +1,5 @@
 import React from 'react'
-import { getSinglePost, getCategoryIndex, getAreaIndex, createPost, createImage } from '../requests'
+import { getSinglePost, getCategoryIndex, updatePost, updateImage } from '../requests'
 import AuthContext from "../AuthContext"
 import Dropzone from 'react-dropzone'
 
@@ -17,6 +17,7 @@ class EditPostForm extends React.Component {
         user_id: '',
         area_id: '',
         category_id: '',
+        image_id: '',
         image_url: '',
         post_id: '',
         allCategories: '',
@@ -40,6 +41,7 @@ class EditPostForm extends React.Component {
 
         if (this.props.post.images.length > 0) {
             this.setState({
+                image_id: this.props.post.images[0].id,
                 image_url: this.props.post.images[0].image_url
             })
         }
@@ -87,43 +89,13 @@ class EditPostForm extends React.Component {
                 myFileItemReader.addEventListener("load", () => {
                     const myResult = myFileItemReader.result
                     this.setState({
-                        image_url: myResult
+                        image_url: myResult,
+                        newImageUpload: true
                     })
                 }, false)
                 myFileItemReader.readAsDataURL(currentFile)
             }
         }
-    }
-
-    createPost = (event) => {
-        event.preventDefault()
-        console.log('trigger submit!')
-        let newPost = {
-            title: this.state.title,
-            description: this.state.description,
-            user_id: this.state.user_id,
-            area_id: this.state.area_id,
-            category_id: this.state.category_id
-        }
-        createPost(newPost, this.context.token)
-            // .then(res => console.log('new post posted:', res.data))
-            .then(res => {
-                let postId = res.data.id
-                this.setState({
-                    post_id: res.data.id
-                })
-                let newImage = {
-                    image_url: this.state.image_url,
-                    post_id: res.data.id
-                }
-                createImage(newImage, this.context.token)
-                    .then(response => {
-                        getSinglePost(postId, this.context.token)
-                            // .then(singleResponses => console.log('Single post:', singleResponses.data))
-                            .then(singleResponses => this.props.handleSubmit(singleResponses.data))
-                    })
-
-            })
     }
 
     handleSelection = (event) => {
@@ -135,14 +107,41 @@ class EditPostForm extends React.Component {
         })
     }
 
+    //update post and update image
+    updatePost = (event) => {
+        event.preventDefault()
+        console.log('Save triggered!')
+        let newPost = {
+            title: this.state.title,
+            description: this.state.description,
+            user_id: this.state.user_id,
+            area_id: this.state.area_id,
+            category_id: this.state.category_id
+        }
+        let newImage = {
+            post_id: this.state.post_id, 
+            image_url: this.state.image_url
+        }
+        console.log('🌟Update post is:', newPost)
+        console.log('🌟Update image is:', newImage)
+
+        updatePost(newPost, this.state.post_id, this.context.token)
+        updateImage(newImage, this.state.image_id, this.context.token)
+        getSinglePost(this.state.post_id, this.context.token)
+        // .then(res => console.log('After patching, singe recipe is:', res.data))
+        .then(res => {
+            this.props.handleEdit(res.data)
+        })
+    }
+
 
     render() {
         console.log('🔫edit form state:', this.state)
         // console.log('new form context:', this.context.user)
         return (
-            <div className='post-detail'>
+            <details className='post-detail'>
                 <h4 className='title is-4'>Edit this post</h4>
-                <form onSubmit={null}>
+                <form onSubmit={this.updatePost}>
                     <div className="field is-horizontal">
                         <div className="field-label is-normal">
                             <label className="label">Title</label>
@@ -197,21 +196,18 @@ class EditPostForm extends React.Component {
                         </div>
                     </div>
 
-                    {this.state.image_url
+                    {this.state.newImageUpload === false
                         ? <div className="field is-horizontal">
                             <div className="field-label is-normal">
-                                <label className="label">Preview Image</label>
+                                <label className="label">Current Image</label>
                             </div>
                             <div className="field-body">
                                 <div className="control">
                                     <img src={this.state.image_url} alt='New image'></img>
                                 </div>
                             </div>
-                        </div>
-
-                        : <div className="field is-horizontal">
                             <div className="field-label is-normal">
-                                <label className="label">Upload Image</label>
+                                <label className="label">New Image</label>
                             </div>
                             <div className="field-body">
                                 <div className="control">
@@ -228,11 +224,20 @@ class EditPostForm extends React.Component {
                                 </div>
                             </div>
                         </div>
+                        : <div className="field is-horizontal">
+                            <div className="field-label is-normal">
+                                <label className="label">New Image Preview</label>
+                            </div>
+                            <div className="field-body">
+                                <div className="control">
+                                    <img src={this.state.image_url} alt='New image'></img>
+                                </div>
+                            </div>
+                        </div>
                     }
-
-                    <button className='button is-info new-button-margin'>Create a new post</button>
+                    <button className='button is-info new-button-margin'>Save Post</button>
                 </form>
-            </div>
+            </details>
         )
     }
 }

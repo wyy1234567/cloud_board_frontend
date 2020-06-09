@@ -89,10 +89,9 @@ export const createPost = (post, token) => {
     .catch(handleError);
 }
 
-export const updatePost = (post, token) => {
-    console.log("UPDATE RECIPE", post);
-    // it's formdata now, so need to use .get(key)
-    return axios.patch(`${baseURL}/posts/${post.get("id")}`, post, config(token))
+export const updatePost = (post, post_id, token) => {
+    console.log("UPDATE Post", post);
+    return axios.patch(`${baseURL}/posts/${post_id}`, post, config(token))
     .catch(handleError);
 }
 
@@ -137,5 +136,11 @@ export const getAreaIndex = (token) => {
 
 export const createImage = (image, token) => {
     return axios.post(`${baseURL}/images`, image, config(token))
+    .catch(handleError);
+}
+
+export const updateImage = (image, image_id, token) => {
+    console.log("UPDATE image", image);
+    return axios.patch(`${baseURL}/images/${image_id}`, image, config(token))
     .catch(handleError);
 }

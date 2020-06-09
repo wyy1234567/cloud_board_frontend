@@ -24,9 +24,9 @@ class PostDetails extends React.Component {
         console.log('🔴Post details props', this.props.post)
         console.log('COntext:', this.context.user)
         return (
-            <div className='post-detail'>
+            <details className='post-detail'>
                 <h3 className='title is-3'>{post.post.title}</h3>
-                <p>Created by {post.user.name} at {`${created_at.substr(5, 2)}/${created_at.substr(8, 2)}/${created_at.substr(0, 4)}`}</p>
+                <p>Created by {post.user.name} at {`${created_at.substr(5, 2)}/${created_at.substr(8, 2)}/${created_at.substr(0, 4)}`} | {post.category.name}</p>
                 {/* {post.user.id === this.context.user.id
                 ? <button className='button is-danger' onClick={() => this.props.handleDelete(post.post.id)}>Delete</button>
                 : ''
@@ -57,7 +57,7 @@ class PostDetails extends React.Component {
                         </p>
                     </div>
                 </form>
-            </div>
+            </details>
         )
     }
 }

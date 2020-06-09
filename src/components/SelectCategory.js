@@ -4,7 +4,7 @@ class SelectCategory extends React.Component {
 
     render() {
         return (
-            <div className="select is-small is-info post-buttons">
+            <list className="select is-small is-info post-buttons">
                 <select value={this.props.category} onChange={this.props.handleSelect}>
                     <option value='all'>All</option>
                     <option value='housing'>Housing</option>
@@ -13,7 +13,7 @@ class SelectCategory extends React.Component {
                     <option value='pet adoption'>Pet Adoption</option>
                     <option value='event'>Event</option>
                 </select>
-            </div>
+            </list>
         )
     }
 }

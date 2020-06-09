@@ -47,13 +47,15 @@ class PostContainer extends React.Component {
 
     userSearch = (event) => {
         this.setState({
-            search: event.target.value
+            search: event.target.value,
+            renderPage: 'default'
         })
     }
 
     categorySelction = (event) => {
         this.setState({
-            category: event.target.value
+            category: event.target.value,
+            renderPage: 'default'
         })
     }
 
@@ -160,9 +162,25 @@ class PostContainer extends React.Component {
 
     //1.update selected post
     //2.update localPost array
-    //
-    editPost = (post_id) => {
-        console.log('trigger edit post, id is:', post_id)
+    //3.render the updated post
+    editPost = (post_details) => {
+        console.log('trigger edit post, post:', post_details)
+        let copy = [...this.state.localPost]
+        let newCopy = []
+        copy.forEach(post_obj => {
+            if(post_obj.post.id !== post_details.post.id) {
+                newCopy.push(post_obj)
+            } else {
+                newCopy.push(post_details)
+            }
+        })
+        console.log('before state:', copy)
+        console.log('new local Post is:', newCopy)
+        this.setState({
+            renderPage: 'details',
+            clickedPost: post_details,
+            localPost: newCopy
+        })
     }
 
     handleRender = () => {
@@ -189,7 +207,7 @@ class PostContainer extends React.Component {
         let filtered = this.filterPost()
         
         return (
-            <div className='grid'>
+            <>
                 <SelectCategory category={this.state.category} handleSelect={this.categorySelction}/>
                 <button className='button is-info is-small post-buttons' onClick={this.handleNewButton}>New Post</button>
                 <SearchBar handleInput={this.userSearch} search={this.state.search}/>
@@ -201,7 +219,7 @@ class PostContainer extends React.Component {
                 />
 
                 {this.handleRender()}
-            </div>
+            </>
         )
     }
 }

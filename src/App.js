@@ -117,7 +117,7 @@ export default withRouter(App);
 
 const WithContainer = (props) => {
   return(
-    <div className="container">
+    <>
       {props.user
       ? <>
           <Switch>
@@ -133,5 +133,5 @@ const WithContainer = (props) => {
           <Redirect to='/' />
         </>
       }
-    </div>)
+    </>)
 }
