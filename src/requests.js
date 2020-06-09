@@ -63,7 +63,7 @@ export const logout = () => {
  
 
 /////////////////////////////////////////////////////////
-// post: user's posts, local posts, singlePost, createPost
+// post: user's posts, local posts, singlePost, createPost, delete
 
 export const getUserPosts = (token) => {
     // this would just be based on the current user
@@ -96,6 +96,11 @@ export const updatePost = (post, token) => {
     .catch(handleError);
 }
 
+
+export const deletePost = (post_id, token) => {
+    return axios.delete(`${baseURL}/posts/${post_id}`, config(token))
+    .catch(handleError);
+}
 
 
 /////////////////////////////////////////////////////////

@@ -1,5 +1,5 @@
 import React from 'react'
-import { getUserPosts, getLocalPosts, createComment, deleteComment } from '../requests'
+import { getUserPosts, getLocalPosts, createComment, deleteComment, deletePost } from '../requests'
 import PostList from '../components/PostList'
 import DefaultPostPage from '../components/DefaultPostPage'
 import PostDetails from '../components/PostDetails'
@@ -7,6 +7,7 @@ import AuthContext from "../AuthContext"
 import SearchBar from '../components/SearchBar'
 import SelectCategory from '../components/SelectCategory'
 import NewPostForm from '../components/NewPostForm'
+import EditPostForm from '../components/EditPostForm'
 
 //TODO: allow user to delete/update a post 
 class PostContainer extends React.Component {
@@ -21,7 +22,6 @@ class PostContainer extends React.Component {
         category: 'all',
         clickedPostComments: '',  //help to keep track of comments, can add/delete
         renderPage: 'default'
-
     }
 
     componentDidMount() {
@@ -128,8 +128,41 @@ class PostContainer extends React.Component {
     createPost = (newPost) => {
         console.log('🔫new post found!')
         this.setState({
-            localPost: [...this.state.localPost, newPost]
+            localPost: [...this.state.localPost, newPost],
+            renderPage: 'default'
         })
+    }
+
+    deletePost = (post_id) => {
+        console.log("Trigger Delete!, the id is:", post_id)
+        deletePost(post_id, this.context.token)
+        .then(res => {
+            let copy = [...this.state.localPost]
+            let newCopy = []
+            copy.forEach(post_obj => {
+                if (post_obj.post.id !== post_id) {
+                    newCopy.push(post_obj)
+                }
+            })
+            this.setState({
+                localPost: newCopy,
+                renderPage: 'default'
+            })
+        })
+    }
+
+    handleEditButton = () => {
+        this.setState({
+            renderPage: 'edit'
+        })
+    }
+
+
+    //1.update selected post
+    //2.update localPost array
+    //
+    editPost = (post_id) => {
+        console.log('trigger edit post, id is:', post_id)
     }
 
     handleRender = () => {
@@ -143,7 +176,11 @@ class PostContainer extends React.Component {
             newComment={this.state.newComment}  //controlled form input
             handleChange={this.newCommentInput} 
             handleSubmit={this.addComment}
-            handleDelete={this.deleteComment}/>
+            handleDelete={this.deleteComment}
+            handleDeletePost={this.deletePost}
+            handleEditButton={this.handleEditButton}/>
+        } else if(this.state.renderPage === 'edit') {
+            return <EditPostForm post={this.state.clickedPost} handleEdit={this.editPost}/>
         }
     }
 

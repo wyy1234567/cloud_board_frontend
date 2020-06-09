@@ -124,6 +124,9 @@ const WithContainer = (props) => {
             <Route path='/posts'>
               <PostContainer />
             </Route>
+            {/* <Route path='/posts'>
+              <PostContainer />
+            </Route> */}
           </Switch>
         </>
       : <>
