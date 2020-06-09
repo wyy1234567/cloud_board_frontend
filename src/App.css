@@ -117,3 +117,7 @@
   -o-user-select: none;
   user-select: none;
 }
+
+.new-button-margin{
+  margin-left: 426px;
+}

@@ -8,6 +8,7 @@ import SearchBar from '../components/SearchBar'
 import SelectCategory from '../components/SelectCategory'
 import NewPostForm from '../components/NewPostForm'
 
+//TODO: allow user to delete/update a post 
 class PostContainer extends React.Component {
 
     static contextType = AuthContext;
@@ -19,10 +20,6 @@ class PostContainer extends React.Component {
         search: '',
         category: 'all',
         clickedPostComments: '',  //help to keep track of comments, can add/delete
-        newComment: '', //control new comment form 
-        newPostTitle: '', //here? 
-        newPostDescription: '', //here???
-        newImageUrl: '',
         renderPage: 'default'
 
     }
@@ -128,11 +125,18 @@ class PostContainer extends React.Component {
         })
     }
 
+    createPost = (newPost) => {
+        console.log('🔫new post found!')
+        this.setState({
+            localPost: [...this.state.localPost, newPost]
+        })
+    }
+
     handleRender = () => {
         if (this.state.renderPage === 'default') {
             return <DefaultPostPage />
         } else if(this.state.renderPage === 'form') {
-            return <NewPostForm />
+            return <NewPostForm handleSubmit={this.createPost}/>
         } else if(this.state.renderPage === 'details') {
             return <PostDetails post={this.state.clickedPost} 
             comments={this.state.clickedPostComments} 

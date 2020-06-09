@@ -16,7 +16,11 @@ class PostDetails extends React.Component {
             <div className='post-detail'>
                 <h3 className='title is-3'>{post.post.title}</h3>
                 <p>Created by {post.user.name} at {`${created_at.substr(5, 2)}/${created_at.substr(8, 2)}/${created_at.substr(0, 4)}`}</p>
-                <img src={post.images[0].image_url}></img>
+                {post.images.length > 0
+                ? <img src={post.images[0].image_url}></img>
+                : ''
+                }
+                
                 <p>{post.post.description}</p>
                 {this.props.comments.length > 0
                 ? this.props.comments.map((comment, index) => <Comment key={index} {...comment} deleteComment={this.props.handleDelete}/>)

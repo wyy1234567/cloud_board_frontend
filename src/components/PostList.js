@@ -11,7 +11,7 @@ class PostList extends React.Component{
             <div className='post-tile' key={index}>
                 <h3 className='title is-3'>{post_obj.post.title}</h3>
                 <p>Created at {`${created_at.substr(5, 2)}/${created_at.substr(8, 2)}/${created_at.substr(0,4)}`}</p>
-                <button className='button is-primary is-inverted' onClick={() => this.props.handleClick(post_obj)}>Details</button>
+                <button className='button is-info is-inverted' onClick={() => this.props.handleClick(post_obj)}>Details</button>
             </div>
         )
     }

@@ -111,3 +111,26 @@ export const deleteComment = (comment_id, token) => {
     .catch(handleError);
 }
 
+
+/////////////////////////////////////////////////////////
+// category: index
+export const getCategoryIndex = (token) => {
+    return axios.get(`${baseURL}/categories`, config(token))
+    .catch(handleError);
+}
+
+
+/////////////////////////////////////////////////////////
+// area: index
+export const getAreaIndex = (token) => {
+    return axios.get(`${baseURL}/areas`, config(token))
+    .catch(handleError);
+}
+
+/////////////////////////////////////////////////////////
+// image: create, delete
+
+export const createImage = (image, token) => {
+    return axios.post(`${baseURL}/images`, image, config(token))
+    .catch(handleError);
+}
