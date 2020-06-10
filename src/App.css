@@ -41,24 +41,6 @@
   margin: 3% auto;
 }
 
-body {
-  margin: 0;
-  display: grid;
-  grid-template-columns: 20% 80%;
-  grid-template-areas: "list details"
-}
-
-list,
-
-details {
-  grid-area: details;
-  display: inline;
-}
-
-list {
-  grid-area: list;
-}
-
 #box1 {
   margin-left: 300px;
   height: 300px;

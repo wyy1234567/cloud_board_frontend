@@ -18,9 +18,9 @@ class PostList extends React.Component{
 
     render() {
         return(
-            <list className='post-list'>
+            <div className='post-list'>
                 {this.props.localPosts.map((post, index) => this.renderPost(post, index))}
-            </list>
+            </div>
         )
     }
 }

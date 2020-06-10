@@ -139,7 +139,7 @@ class EditPostForm extends React.Component {
         console.log('🔫edit form state:', this.state)
         // console.log('new form context:', this.context.user)
         return (
-            <details className='post-detail'>
+            <div className='post-detail'>
                 <h4 className='title is-4'>Edit this post</h4>
                 <form onSubmit={this.updatePost}>
                     <div className="field is-horizontal">
@@ -237,7 +237,7 @@ class EditPostForm extends React.Component {
                     }
                     <button className='button is-info new-button-margin'>Save Post</button>
                 </form>
-            </details>
+            </div>
         )
     }
 }
