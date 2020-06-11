@@ -51,6 +51,7 @@ class App extends React.Component {
 
   setCurrentUser = (data, callback) => {    
     this.setState({loaded: true});
+    console.log('app data is:', data)
 
     if(data){
       if(callback && typeof callback === "function"){
@@ -124,9 +125,6 @@ const WithContainer = (props) => {
             <Route path='/posts'>
               <PostContainer />
             </Route>
-            {/* <Route path='/posts'>
-              <PostContainer />
-            </Route> */}
           </Switch>
         </>
       : <>

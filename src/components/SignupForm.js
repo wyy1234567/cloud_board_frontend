@@ -1,14 +1,17 @@
 import React from 'react'
-import { register } from '../requests'
+import { register, allAreas, createArea } from '../requests'
+import AuthContext from "../AuthContext"
 
 export default class SignupForm extends React.Component {
+
+    static contextType = AuthContext;
 
     state = {
         name: '',
         zipcode: '',
         password: '',
         confirmed_password: '',
-        error: ''
+        error: '',
     }
 
     handleUserInput = (event) => {
@@ -17,6 +20,7 @@ export default class SignupForm extends React.Component {
         })
     }
 
+    
     submitForm = (event) => {
         event.preventDefault()
         if (this.state.name && this.state.zipcode && this.state.password) {

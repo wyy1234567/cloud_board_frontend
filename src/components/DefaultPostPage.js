@@ -12,19 +12,30 @@ class DefaultPostPage extends React.Component{
 
     componentDidMount() {
         getLocalPosts(this.context.user.zipcode, this.context.token)
-        .then(res => this.setState({
-            localPost: res.data
-        }))
+        .then(res => {
+            if (res.data.length > 0) {
+                this.setState({
+                    localPost: res.data
+                })
+            }
+        })
     }
     render() {
-        console.log('Default state:', this.state)
+        console.log('🔫Default props:', this.props)
+        // return(
+        //     <div className='post-detail'>
+        //         <h3 className='title is-3'>Local Posts at a Glance</h3>
+        //         <p>{this.state.localPost
+        //         ? `Area ${this.state.localPost[0].area.name} has ${this.state.localPost.length} posts`
+        //         : 'No post found'}</p>
+        //     </div>
+        // )
         return(
             <div className='post-detail'>
                 <h3 className='title is-3'>Local Posts at a Glance</h3>
-                <p>{this.state.localPost 
-                ? `Area ${this.state.localPost[0].area.name} has ${this.state.localPost.length} posts`
-                : 'No post in your area yet'}</p>
-                
+                <p>{this.props.posts.length > 0
+                ? `${this.props.posts.length} posts found`
+                : 'No post found'}</p>
             </div>
         )
     }

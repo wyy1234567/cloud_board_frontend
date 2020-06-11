@@ -61,7 +61,6 @@ export const logout = () => {
     .catch(handleError);
 }
  
-
 /////////////////////////////////////////////////////////
 // post: user's posts, local posts, singlePost, createPost, delete
 
@@ -125,11 +124,22 @@ export const getCategoryIndex = (token) => {
 
 
 /////////////////////////////////////////////////////////
-// area: index
+// area: index, new
 export const getAreaIndex = (token) => {
     return axios.get(`${baseURL}/areas`, config(token))
     .catch(handleError);
 }
+
+export const createArea = (area, token) => {
+    return axios.post(`${baseURL}/areas`, area, config(token))
+    .catch(handleError);
+}
+
+export const allAreas = () => {
+    return axios.get(`${baseURL}/users`)
+    .catch(handleError)
+}
+
 
 /////////////////////////////////////////////////////////
 // image: create, delete
