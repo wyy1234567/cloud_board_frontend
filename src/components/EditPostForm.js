@@ -125,13 +125,25 @@ class EditPostForm extends React.Component {
         console.log('🌟Update post is:', newPost)
         console.log('🌟Update image is:', newImage)
 
+        // updatePost(newPost, this.state.post_id, this.context.token)
+        // updateImage(newImage, this.state.image_id, this.context.token)
+        // getSinglePost(this.state.post_id, this.context.token)
+        // // .then(res => console.log('After patching, singe recipe is:', res.data))
+        // .then(res => {
+        //     this.props.handleEdit(res.data)
+        // })
+
         updatePost(newPost, this.state.post_id, this.context.token)
-        updateImage(newImage, this.state.image_id, this.context.token)
-        getSinglePost(this.state.post_id, this.context.token)
-        // .then(res => console.log('After patching, singe recipe is:', res.data))
         .then(res => {
-            this.props.handleEdit(res.data)
+            updateImage(newImage, this.state.image_id, this.context.token)
+            .then(res1 => {
+                getSinglePost(this.state.post_id, this.context.token)
+                .then(res2 => {
+                    this.props.handleEdit(res2.data)
+                })
+            })
         })
+        // .then(res => console.log('After patching, singe recipe is:', res.data))
     }
 
 

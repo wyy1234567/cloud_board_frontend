@@ -21,7 +21,8 @@ class PostContainer extends React.Component {
         search: '',
         category: 'all',
         clickedPostComments: '',  //help to keep track of comments, can add/delete
-        renderPage: 'default'
+        renderPage: 'default',
+        renderList: 'all' //all: all local posts, user: user's posts
     }
 
     componentDidMount() {
@@ -208,17 +209,39 @@ class PostContainer extends React.Component {
         
         return (
             <>
-                <SelectCategory category={this.state.category} handleSelect={this.categorySelction}/>
-                <button className='button is-info is-small post-buttons' onClick={this.handleNewButton}>New Post</button>
-                <SearchBar handleInput={this.userSearch} search={this.state.search}/>
+                <nav className='level nav-level is-marginless'>
+                    <div className='level-left'>
+                        <div className='level-item'>
+                            <button className='button is-info is-small all-post-margin' onClick={null}>All posts</button>
+                        </div>
+                        <div className='level-item'>
+                            <SelectCategory category={this.state.category} handleSelect={this.categorySelction}/>
+                        </div>
+                        <div className='level-item'>
+                            <div className='level-item'>
+                                <SearchBar handleInput={this.userSearch} search={this.state.search}/>
+                            </div>
+                        </div>                       
+                    </div>
 
-                <PostList 
-                // localPosts={this.state.localPost} 
-                localPosts={filtered} 
-                handleClick={this.clickedPost}
-                />
+                    <div className='level-right'>
+                        <div className='level-item'>
+                            <button className='button is-info is-small' onClick={null}>My post</button>
+                        </div>
+                        <button className='button is-primary is-small new-post-margin' onClick={this.handleNewButton}>New Post</button>
+                    </div>
+                </nav>
 
-                {this.handleRender()}
+                <div>
+                    <PostList 
+                    // localPosts={this.state.localPost} 
+                    localPosts={filtered} 
+                    handleClick={this.clickedPost}
+                    />
+                </div>
+                <div className='tile is-parent is-8'>
+                    {this.handleRender()}
+                </div>
             </>
         )
     }

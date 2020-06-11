@@ -69,11 +69,6 @@
 }
 
 
-.post-buttons {
-  margin-left: 0px;
-  /* float: left; */
-  border-right: 1px solid #ccc;
-}
 
 .post-list{
   margin-left: 0px;
@@ -92,5 +87,21 @@
 }
 
 .new-button-margin{
-  margin-left: 426px;
+  margin-left: 0px;
+}
+
+.nav-level {
+  background-color: #f3f3f4;
+  border: 1px solid #d2d8df;
+  margin-top: 10px;
+}
+
+
+.all-post-margin{
+  margin-left: 5px;
+}
+
+.new-post-margin{
+  margin-right: 15px;
+  margin-bottom: 0;
 }
