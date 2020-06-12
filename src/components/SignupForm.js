@@ -6,6 +6,8 @@ export default class SignupForm extends React.Component {
 
     static contextType = AuthContext;
 
+    //TODO: 
+    //USE API to get user's zipcode!
     state = {
         name: '',
         zipcode: '',
@@ -48,6 +50,7 @@ export default class SignupForm extends React.Component {
     }
     render() {
         console.log('Register state:', this.state)
+        console.log('🏵API key is', process.env.REACT_APP_API_KEY)
         return (
             <div id='box2'>
                 <h3 className='title is-3'>Register</h3>

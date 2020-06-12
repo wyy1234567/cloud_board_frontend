@@ -48,6 +48,10 @@ class PostContainer extends React.Component {
                             }))
                     } else {
                         console.log('AREA not found')
+                        //TODO:
+                        //1.use api to find area's zipcode and name
+                        //2.make a post to area database
+                        //3.then do the fetch of local posts and user posts
                     }
                 })
 
@@ -223,7 +227,6 @@ class PostContainer extends React.Component {
         if (this.state.renderPage === 'default') {
             let localPosts = this.state.localPost ? [...this.state.localPost] : ''
             let userPosts = this.state.userPost ? [...this.state.userPost] : ''
-            // let filtered = this.filterPost(localPosts)
             let filtered = this.state.renderList === 'all' ? this.filterPost(localPosts) : this.filterPost(userPosts)
             return <DefaultPostPage posts={filtered} />
         } else if (this.state.renderPage === 'form') {
