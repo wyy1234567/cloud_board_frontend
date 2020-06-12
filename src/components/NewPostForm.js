@@ -99,8 +99,9 @@ class NewPostForm extends React.Component {
             category_id: this.state.category_id
         }
         createPost(newPost, this.context.token)
-            // .then(res => console.log('new post posted:', res.data))
+            // .then(res => console.log('🔴new post posted:', res.data))
             .then(res => {
+                console.log('🔴new post posted:', res.data)
                 let postId = res.data.id
                 this.setState({
                     post_id: res.data.id

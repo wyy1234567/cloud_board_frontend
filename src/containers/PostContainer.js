@@ -1,5 +1,5 @@
 import React from 'react'
-import { getUserPosts, getLocalPosts, createComment, deleteComment, deletePost } from '../requests'
+import { getUserPosts, getLocalPosts, createComment, deleteComment, deletePost, createArea } from '../requests'
 import PostList from '../components/PostList'
 import DefaultPostPage from '../components/DefaultPostPage'
 import PostDetails from '../components/PostDetails'
@@ -9,7 +9,8 @@ import SelectCategory from '../components/SelectCategory'
 import NewPostForm from '../components/NewPostForm'
 import EditPostForm from '../components/EditPostForm'
 
-//TODO: allow user to delete/update a post 
+const ipUrl = 'https://api.ipify.org/?format=json'
+
 class PostContainer extends React.Component {
 
     static contextType = AuthContext;
@@ -27,45 +28,59 @@ class PostContainer extends React.Component {
     }
 
     componentDidMount() {
-
         fetch('http://localhost:3000/users')
             .then(res => res.json())
-            // .then(res => this.setState({allAreas: res}))
             .then(res => {
-                console.log('🌟All areas:', res)
                 this.setState({ allAreas: res })
+                let isAreaExist = false
                 res.forEach(area_obj => {
                     if (area_obj.zipcode === this.context.user.zipcode) {
-                        console.log('AREA found')
-                        getUserPosts(this.context.token)
-                            .then(res => this.setState({
-                                userPost: res.data
-                            }))
-
-                        getLocalPosts(this.context.user.zipcode, this.context.token)
-                            .then(res => this.setState({
-                                localPost: res.data
-                            }))
-                    } else {
-                        console.log('AREA not found')
-                        //TODO:
-                        //1.use api to find area's zipcode and name
-                        //2.make a post to area database
-                        //3.then do the fetch of local posts and user posts
+                        isAreaExist = true
                     }
                 })
+                console.log('🔴is area exist?:', isAreaExist)
 
+                if (isAreaExist) {
+                    console.log('😀ARea found!')
+                    getUserPosts(this.context.token)
+                        .then(res => this.setState({
+                            userPost: res.data
+                        }))
+
+                    getLocalPosts(this.context.user.zipcode, this.context.token)
+                        .then(res => this.setState({
+                            localPost: res.data
+                        }))
+                } else {
+                    console.log('😰Area not found!')
+                    fetch(ipUrl)
+                        .then(res => res.json())
+                        .then(res => {
+                            let ipAddress = res.ip
+                            let url = `http://api.ipstack.com/${ipAddress}?access_key=${process.env.REACT_APP_API_KEY}&format=1`
+                            fetch(url)
+                                .then(res => res.json())
+                                .then(res => {
+                                    let newArea = {
+                                        zipcode: res.zip,
+                                        name: res.city
+                                    }
+                                    createArea(newArea, this.context.token)
+                                        .then(res => {
+                                            getUserPosts(this.context.token)
+                                                .then(res => this.setState({
+                                                    userPost: res.data
+                                                }))
+
+                                            getLocalPosts(res.data.zipcode, this.context.token)
+                                                .then(res => this.setState({
+                                                    localPost: res.data
+                                                }))
+                                        })
+                                })
+                        })
+                }
             })
-
-        // getUserPosts(this.context.token)
-        // .then(res => this.setState({
-        //     userPost: res.data
-        // }))
-
-        // getLocalPosts(this.context.user.zipcode, this.context.token)
-        // .then(res => this.setState({
-        //     localPost: res.data
-        // }))
     }
 
 

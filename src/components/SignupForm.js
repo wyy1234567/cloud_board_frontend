@@ -1,19 +1,40 @@
 import React from 'react'
 import { register, allAreas, createArea } from '../requests'
 import AuthContext from "../AuthContext"
+const ipUrl = 'https://api.ipify.org/?format=json'
 
 export default class SignupForm extends React.Component {
 
     static contextType = AuthContext;
 
-    //TODO: 
-    //USE API to get user's zipcode!
     state = {
         name: '',
         zipcode: '',
         password: '',
         confirmed_password: '',
         error: '',
+        ip: '',
+        area: ''
+    }
+
+    componentDidMount() {
+        fetch(ipUrl)
+        .then(res => res.json())
+        // .then(res => this.setState({ip: res.ip}))
+        .then(res => {
+            let ipAddress = res.ip
+            let url = `http://api.ipstack.com/${ipAddress}?access_key=${process.env.REACT_APP_API_KEY}&format=1`
+            fetch(url)
+            .then(res => res.json())
+            // .then(res => console.log('geolocation response:', res))
+            .then(res => {
+                this.setState({
+                    ip: res.ip,
+                    zipcode: res.zip,
+                    area: res.city
+                })
+            })
+        })
     }
 
     handleUserInput = (event) => {
@@ -50,7 +71,6 @@ export default class SignupForm extends React.Component {
     }
     render() {
         console.log('Register state:', this.state)
-        console.log('🏵API key is', process.env.REACT_APP_API_KEY)
         return (
             <div id='box2'>
                 <h3 className='title is-3'>Register</h3>
