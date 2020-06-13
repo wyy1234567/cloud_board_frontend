@@ -42,9 +42,10 @@
 }
 
 #box1 {
-  margin-left: 300px;
+  margin-top: 80px;
+  margin-left: 525px;
   height: 300px;
-  width: 250px;
+  width: 300px;
   float: left;
 }
 
@@ -104,4 +105,35 @@
 .new-post-margin{
   margin-right: 15px;
   margin-bottom: 0;
+}
+
+.sign-margin{
+  margin-top: 5px;
+  margin-right: 10px;
+}
+
+#homepage {
+  /* ./img/white-yellow.png ./img/beach.jpg ./img/sunset.jpg */
+  background-image: url(./img/beach.jpg);
+  /* background-image: url(./img/sunset.jpg); */
+  height: 700px;
+  width: 1500px;
+}
+
+#home-text {
+  background-color: indianred;
+  margin-left: 600px;
+}
+
+#sign-margin{
+  /* margin-left: 100px; */
+  margin-right: 100px;
+}
+
+#box3 {
+  margin-top: 100px;
+  margin-left: 450px;
+  height: 300px;
+  width: 600px;
+  float: left;
 }

@@ -42,6 +42,7 @@ export default class LoginForm extends React.Component {
     render() {
         return (
             <div id='box1'>
+            {/* <div> */}
                 <h3 className='title is-3'>Login</h3>
                 {
                     this.state.error
@@ -67,7 +68,7 @@ export default class LoginForm extends React.Component {
                     </div>
 
                     <div className="control" >
-                        <input className='button is-link' type="submit" value="Login" />
+                        <input className='sign-margin button is-link' type="submit" value="Login" />
                     </div>
                 </form>
             </div>

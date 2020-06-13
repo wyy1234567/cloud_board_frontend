@@ -72,7 +72,7 @@ export default class SignupForm extends React.Component {
     render() {
         console.log('Register state:', this.state)
         return (
-            <div id='box2'>
+            <div id='box1'>
                 <h3 className='title is-3'>Register</h3>
                 {
                     this.state.error
