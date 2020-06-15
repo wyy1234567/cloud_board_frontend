@@ -1,5 +1,5 @@
 import React from 'react'
-import { register, allAreas, createArea } from '../requests'
+import { register } from '../requests'
 import AuthContext from "../AuthContext"
 const ipUrl = 'https://api.ipify.org/?format=json'
 
