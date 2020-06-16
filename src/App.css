@@ -141,3 +141,20 @@
 .nav-title {
   color: rgb(29, 53, 160);
 }
+
+.detail-margin {
+  margin-left: 100px;
+}
+
+.image-size {
+  margin-left: 200px;
+  margin-top: 50px;
+  max-width: 400px;
+  max-height: 400px;
+  margin-bottom: 50px;
+}
+
+.discription-margin{
+  margin-top: 20px;
+  margin-bottom: 50px;
+}

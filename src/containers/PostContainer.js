@@ -287,11 +287,6 @@ class PostContainer extends React.Component {
         }
     }
 
-    // getLocalPosts(this.context.user.zipcode, this.context.token)
-    //                     .then(res => this.setState({
-    //                         localPost: res.data
-    //                     }))
-
     render() {
         console.log('post state', this.state)
         let localPosts = this.state.localPost ? [...this.state.localPost] : ''
@@ -327,14 +322,15 @@ class PostContainer extends React.Component {
                     </div>
                 </nav>
 
-                <div>
+                <div className='list-title-margin'>
                     <PostList
                         // localPosts={this.state.localPost} 
                         localPosts={filtered}
                         handleClick={this.clickedPost}
                     />
                 </div>
-                <div className='tile is-parent is-8'>
+                <div className='tile is-parent is-8 detail-margin'>
+                {/* <div className='page'> */}
                     {this.handleRender()}
                 </div>
             </>

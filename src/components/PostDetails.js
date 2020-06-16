@@ -10,11 +10,17 @@ class PostDetails extends React.Component {
     renderButtons = () => {
         return (
             <>
-                <button className='button is-danger' onClick={() => this.props.handleDeletePost(this.props.post.post.id)}>Delete</button>
-                <button className='button is-danger' onClick={() => this.props.handleEditButton()}>Edit</button>
+                <button className='button is-danger is-marginless button-margin' onClick={() => this.props.handleDeletePost(this.props.post.post.id)}>Delete</button>
+                <button className='button is-danger button-margin' onClick={() => this.props.handleEditButton()}>Edit</button>
             </>
         )
     }
+
+    capitalize = (s) => {
+        if (typeof s !== 'string') return ''
+        return s.charAt(0).toUpperCase() + s.slice(1)
+    }
+
     render() {
         const post = this.props.post
         const created_at = post.post.created_at;
@@ -22,19 +28,22 @@ class PostDetails extends React.Component {
         console.log('COntext:', this.context.user)
         return (
             <div className='post-detail'>
-                <h3 className='title is-3'>{post.post.title}</h3>
-                <p>Created by {post.user.name} at {`${created_at.substr(5, 2)}/${created_at.substr(8, 2)}/${created_at.substr(0, 4)}`} | {post.category.name}</p>
+                <h3 className='title is-4'>{post.post.title}</h3>
+                {/* <p>Created by {post.user.name} at {`${created_at.substr(5, 2)}/${created_at.substr(8, 2)}/${created_at.substr(0, 4)}`} in {post.category.name}</p> */}
+                <p className='subtitle is-6'>Created by {post.user.name} at {`${created_at.substr(5, 2)}/${created_at.substr(8, 2)}/${created_at.substr(0, 4)}`} in {this.capitalize(post.category.name)}</p>
                 {post.user.id === this.context.user.id
                 ? this.renderButtons()
                 : ''
                 }
-
+                <br />
                 {post.images.length > 0
-                ? <img src={post.images[0].image_url}></img>
+                ? <img className='image-size' src={post.images[0].image_url}></img>
                 : ''
                 }
-                
-                <p>{post.post.description}</p>
+
+
+                <p className='title is-5 is-marginless'>Description:</p>
+                <p className='discription-margin'>{post.post.description}</p>
                 {this.props.comments.length > 0
                 ? this.props.comments.map((comment, index) => <Comment key={index} {...comment} deleteComment={this.props.handleDelete}/>)
                 : null
