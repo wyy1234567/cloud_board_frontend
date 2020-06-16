@@ -8,6 +8,7 @@ import SearchBar from '../components/SearchBar'
 import SelectCategory from '../components/SelectCategory'
 import NewPostForm from '../components/NewPostForm'
 import EditPostForm from '../components/EditPostForm'
+import ChangeArea from '../components/ChangeArea'
 
 const ipUrl = 'https://api.ipify.org/?format=json'
 
@@ -289,6 +290,9 @@ class PostContainer extends React.Component {
                             <button className='button is-info is-small' onClick={() => this.toggleUserPosts('user')}>My post</button>
                         </div>
                         <button className='button is-primary is-small new-post-margin' onClick={this.handleNewButton}>New Post</button>
+                        <div className='level-item'>
+                            <ChangeArea />
+                        </div>
                     </div>
                 </nav>
 
