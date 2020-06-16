@@ -11,17 +11,16 @@ class NavBar extends React.Component {
                 <div id="navbarBasicExample" className="navbar-menu">
                     <div className="navbar-start">
                         <div className="navbar-item">
-                            {this.context.user
-                                ? <a className="button is-link is-inverted">{this.context.user.name}</a>
-                                : ""}
-
-                            <a className="button is-primary is-inverted" >
-                                Posts
-                            </a>
+                            <p className='title nav-title'>Cloud Borad</p>
                         </div>
                     </div>
 
                     <div className="navbar-end">
+                        <div className="navbar-item">
+                            {this.context.user
+                                ? <a className="subtitle is-underlined">Hi, {this.context.user.name}</a>
+                                : ""}
+                        </div>
                         <div className="navbar-item">
                             {this.context.user
                                 ? <a className="button is-danger is-inverted" onClick={this.props.logout}><strong>Logout</strong></a>

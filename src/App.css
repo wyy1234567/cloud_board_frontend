@@ -137,3 +137,7 @@
   width: 600px;
   float: left;
 }
+
+.nav-title {
+  color: rgb(29, 53, 160);
+}

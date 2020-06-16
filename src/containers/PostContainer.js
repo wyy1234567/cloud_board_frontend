@@ -25,10 +25,14 @@ class PostContainer extends React.Component {
         clickedPostComments: '',  //help to keep track of comments, can add/delete
         renderPage: 'default',
         renderList: 'all', //all: all local posts, user: user's posts
-        allAreas: ''
+        allAreas: '',
+        otherAreaZip: ''
     }
 
     componentDidMount() {
+        this.setState({
+            otherAreaZip: this.context.user.zipcode
+        })
         fetch('http://localhost:3000/users')
             .then(res => res.json())
             .then(res => {
@@ -238,6 +242,28 @@ class PostContainer extends React.Component {
         })
     }
 
+    selectArea = (event) => {
+        if(event.target.value === this.context.user.zipcode) {
+            getLocalPosts(event.target.value, this.context.token)
+                        .then(res => this.setState({
+                            localPost: res.data
+                        }))
+            this.setState({
+                otherAreaZip: event.target.value,
+                renderPage: 'default'
+            })
+        } else {
+                getLocalPosts(event.target.value, this.context.token)
+                        .then(res => this.setState({
+                            localPost: res.data
+                        }))
+            this.setState({
+                otherAreaZip: event.target.value,
+                renderPage: 'default'
+            })
+        }
+    }
+
 
     handleRender = () => {
         if (this.state.renderPage === 'default') {
@@ -261,13 +287,17 @@ class PostContainer extends React.Component {
         }
     }
 
+    // getLocalPosts(this.context.user.zipcode, this.context.token)
+    //                     .then(res => this.setState({
+    //                         localPost: res.data
+    //                     }))
+
     render() {
         console.log('post state', this.state)
         let localPosts = this.state.localPost ? [...this.state.localPost] : ''
         let userPosts = this.state.userPost ? [...this.state.userPost] : ''
         // let filtered = this.filterPost(localPosts)
         let filtered = this.state.renderList === 'all' ? this.filterPost(localPosts) : this.filterPost(userPosts)
-
         return (
             <>
                 <nav className='level nav-level is-marginless'>
@@ -286,13 +316,14 @@ class PostContainer extends React.Component {
                     </div>
 
                     <div className='level-right'>
+                        <lable className='level-item'>Select a different area</lable>
+                        <div className='level-item'>
+                            <ChangeArea selectArea={this.selectArea} zipcode={this.state.otherAreaZip}/>
+                        </div>
                         <div className='level-item'>
                             <button className='button is-info is-small' onClick={() => this.toggleUserPosts('user')}>My post</button>
                         </div>
                         <button className='button is-primary is-small new-post-margin' onClick={this.handleNewButton}>New Post</button>
-                        <div className='level-item'>
-                            <ChangeArea />
-                        </div>
                     </div>
                 </nav>
 
