@@ -10,8 +10,8 @@ class PostDetails extends React.Component {
     renderButtons = () => {
         return (
             <>
-                <button className='button is-danger is-marginless button-margin' onClick={() => this.props.handleDeletePost(this.props.post.post.id)}>Delete</button>
-                <button className='button is-danger button-margin' onClick={() => this.props.handleEditButton()}>Edit</button>
+                <button className='button is-warning is-small button-margin' onClick={() => this.props.handleEditButton()}>Edit</button>
+                <button className='button is-danger is-small button-margin' onClick={() => this.props.handleDeletePost(this.props.post.post.id)}>Delete</button>
             </>
         )
     }
@@ -44,6 +44,7 @@ class PostDetails extends React.Component {
 
                 <p className='title is-5 is-marginless'>Description:</p>
                 <p className='discription-margin'>{post.post.description}</p>
+                
                 {this.props.comments.length > 0
                 ? this.props.comments.map((comment, index) => <Comment key={index} {...comment} deleteComment={this.props.handleDelete}/>)
                 : null
